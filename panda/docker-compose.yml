@@ -1,0 +1,14 @@
+version: "3"
+services:
+  syz-rrr:
+    build: syz-rrr
+    network_mode: host
+    volumes:
+      - ./syz-rrr/rrr:/root/rrr
+      - ./rrr.ipynb:/root/rrr.ipynb
+      - ./kdo:/root/kdo
+      - ../repros/:/root/repro
+      - ../linux/:/root/kernel
+      - ./out:/root/out
+    environment:
+      - PYTHONPATH=/root
