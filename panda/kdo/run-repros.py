@@ -148,7 +148,7 @@ def main() -> None:
 
 		target_addr = int(addrs[0]['addr'], 16)
 
-		if len(addrs) == 2:
+		if len(addrs) == 1:
 			repro['err'] = 'no_src'
 			record_results.append(repro)
 			continue
