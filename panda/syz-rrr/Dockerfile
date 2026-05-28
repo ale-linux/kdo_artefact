@@ -64,7 +64,10 @@ RUN git -C /panda submodule update --init dtc && \
         --disable-numa \
         --enable-llvm \
         --extra-cflags="-Wno-error=deprecated-declarations" && \
-    rm -rf /panda/.git
+    rm -rf /panda/.git && \
+	rm -rf /panda/panda/plugins/snake_hook/ && \
+	sed -i 's/"snake_hook",//' /panda/panda/plugins/Cargo.toml && \
+	sed -i '/snake_hook/d' /panda/panda/plugins/config.panda
 
 RUN make -C /panda/build -j "$(nproc)"
 
@@ -86,7 +89,6 @@ RUN  make -C /panda/build install && \
     rm -r /usr/local/lib/panda/*/cosi \
         /usr/local/lib/panda/*/cosi_strace \
         /usr/local/lib/panda/*/gdb \
-        /usr/local/lib/panda/*/snake_hook \
         /usr/local/lib/panda/*/rust_skeleton
 
 # Install pypanda
@@ -146,7 +148,7 @@ RUN apt-get -qq install -y gcc libguestfs-tools make flex bison libelf-dev bc li
 
 # Install bpftool from Debian's repository because Ubuntu 22.04 doesn't have it...
 # TODO: Find a more reliably way to download it
-RUN wget http://ftp.ch.debian.org/debian/pool/main/l/linux/bpftool_7.5.0+6.10.11-1~bpo12+1_amd64.deb
+RUN wget https://snapshot.debian.org/archive/debian/20241005T084731Z/pool/main/l/linux/bpftool_7.5.0%2B6.10.11-1~bpo12%2B1_amd64.deb
 RUN dpkg -i bpftool_7.5.0+6.10.11-1~bpo12+1_amd64.deb
 RUN rm bpftool_7.5.0+6.10.11-1~bpo12+1_amd64.deb
 
