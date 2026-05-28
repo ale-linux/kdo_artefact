@@ -5,10 +5,10 @@ services:
     network_mode: host
     volumes:
       - ./syz-rrr/rrr:/root/rrr
-      - ./rrr.ipynb:/root/rrr.ipynb
       - ./kdo:/root/kdo
       - ../repros/:/root/repro
       - ../linux/:/root/kernel
+      - ../db/:/root/db
       - ./out:/root/out
     environment:
       - PYTHONPATH=/root

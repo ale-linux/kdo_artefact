@@ -57,14 +57,6 @@ def main() -> None:
 
 	repros = kdo.parse_reports_json(reports_path, reports_json)
 
-	## # repro_id = "d73eeb2bc242f73eaaba9f0ef8118f82e93bb55b" # no taint
-	## repro_id = "ac3bad7a701d9e0e4c6e3cce1f68392a5787dab7" # did not crash
-	## # repro_id = "6e675f56f166258c81bc8343ed6b2207f05a00e6" # af_x25
-	## # repro_id = "7857221bdd5e7ccc9978bf7dd186ac5157bcdb7b" # msg_msg
-	## #repro_id = "c9f21bbd839ed1c76b88278ed7c77de8b7ac7c8f"
-	## #repro_id = "428efbae6f77ce4c31be437177416ce2b15d7786" super slow
-
-
 	#################
 	# 3) get rootfs #
 	#################
@@ -169,19 +161,6 @@ def main() -> None:
 		record_results.append(repro)
 
 	json.dump(record_results, args.outfile, indent=5, sort_keys=True)
-
-	return
-
-	###################
-	# 6) run analysis #
-	###################
-
-	kdo.replay(rootfs, kernel, sink_call_id=callid, target_addr=[target_addr], cfu_dst=cfu_dst_addr)
-
-	for repro in repros:
-		repro_id = repro['id']
-		call_id = repro['call_id']
-		run_repro(repro_id, call_id, rootfs, kernel)
 
 if __name__ == '__main__':
 	main()

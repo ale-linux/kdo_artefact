@@ -9,8 +9,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 
-from rrr.perfetto_trace_pb2 import Trace, TracePacket, TrackEvent
-from perfetto.trace_processor import TraceProcessor, TraceProcessorConfig
 from pygdbmi.gdbcontroller import GdbController
 import pandas as pd # Not the same Panda!
 from pandare import Panda
